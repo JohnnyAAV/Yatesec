@@ -1,0 +1,459 @@
+<!doctype html>
+<html>
+<head>
+    <title>YachtLink Ecuador | Venta de Yates Catamaranes y Monocascos en Manta</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descubre la mejor selección de yates catamaranes y monocascos nuevos y de segunda mano en Manta, Ecuador. Asesoría, financiamiento y servicio post-venta.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS General */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Encabezado */
+        .header {
+            background-color: #fff;
+            padding: 10px 20px;
+            text-align: center; /* Centrar el texto del encabezado */
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header h1 {
+            margin-top: 0;
+            font-size: 2.2em;
+            color: #007bff;
+        }
+
+        .header p {
+            margin-top: 5px;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Permite que los enlaces salten de línea */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1em;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .navbar a:hover {
+            color: #007bff;
+        }
+
+        /* Contenedor principal de mensajes y servicios */
+        #global-message-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 0;
+            margin: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-height: 0; /* Oculta el contenido inicialmente */
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+
+        #global-message-container.show {
+            max-height: 3000px; /* Suficiente para el contenido, ajustar si es necesario */
+            padding: 20px;
+        }
+
+        /* Estilos generales para el contenido dentro de message-container */
+        .message-content {
+            padding: 20px; /* Añadimos padding al contenido para que no esté pegado a los bordes */
+        }
+
+        .message-content h1, .message-content h2 {
+            color: #007bff;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .message-content p {
+            text-align: justify;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .message-content ul {
+            list-style-type: none; /* Quitamos los puntos por defecto */
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+
+        .message-content ul li {
+            margin-bottom: 10px;
+            position: relative; /* Para el icono personalizado */
+            padding-left: 30px; /* Espacio para el icono */
+            text-align: justify;
+        }
+
+        /* Estilo para el icono de check en las listas (QUIENES SOMOS) */
+        .message-content ul li .icon-check {
+            color: #28a745; /* Color verde */
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2em; /* Tamaño del icono */
+        }
+
+        .message-content strong {
+            color: #e74c3c;
+        }
+
+        /* Estilos para el logo y texto del encabezado */
+        .header .separator {
+            /* Los estilos de centrado ya están en el div del logo */
+        }
+        .header > p, .header > br {
+            display: none;
+        }
+
+
+        /* Sección de Servicios (para INICIO) */
+        .services-section {
+            padding: 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none; /* Inicialmente oculto, se muestra con JS */
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas */
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .service-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo para los títulos con enlace dentro de las tarjetas de servicio */
+        .service-card h3 a {
+            color: #007bff; /* Color del texto del enlace */
+            text-decoration: none; /* Quitar el subrayado por defecto */
+            display: flex; /* Para alinear el ícono con el texto */
+            align-items: center;
+            font-size: 1.4em;
+            margin-top: 0;
+            border-bottom: 1px dashed #d0d0d0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .service-card h3 a:hover {
+            color: #0056b3; /* Color un poco más oscuro al pasar el ratón */
+            text-decoration: underline; /* Subrayar al pasar el ratón */
+        }
+
+        .service-card h3 .icon { /* Estilo para los íconos de Font Awesome */
+            margin-right: 10px;
+            font-size: 1.2em;
+            color: #007bff; /* Color del ícono, puede ser diferente al texto del enlace */
+        }
+
+        .service-card p {
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #666;
+            text-align: justify;
+        }
+
+        /* Restablecemos el comportamiento predeterminado de los bullets */
+        .service-card ul {
+            list-style-type: disc; /* Vuelve a los bullets de disco estándar */
+            padding-left: 20px; /* Agrega padding para que los bullets sean visibles */
+            margin-top: 15px;
+        }
+
+        .service-card ul li {
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            color: #444;
+            text-align: justify;
+        }
+
+        /* Estilos para el footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+
+        /* Media queries para responsividad */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            .navbar a {
+                margin: 10px 0;
+            }
+            .services-grid {
+                grid-template-columns: 1fr; /* Una columna en móviles */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <p></p>
+        <div class="separator" style="clear: both; text-align: center;">
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+                <img border="0" data-original-height="1024" data-original-width="1536" height="80"
+                     src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEih5i8a86FdCUipgT6_FMhWEggOU_GqNVpPulCY1NO9-1DD_n4OdrSooUOhWgDSuUuKpnazAv9lJmw4z6XSy7jiDIK0JN0EmX8DwMyEf-WRgap8UuXV_jZ7bd3o5lkwWkd_-0pu_575W9mnECPiHJ3Y_6zjbUWGuO5qnbuWoyDXBHbZTb4t-XID1IE8Rg5f/w133-h80/sds.webp" width="133" style="margin: 5px;" alt="Logo 1" />
+                <img border="0" data-original-height="1024" data-original-width="1536" height="80"
+                     src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8LtW3FbXRU_ocTYwLJwIqjb2yaiRrT6i7bBiYv-sn7ozy-pBLj5VEwuvuOCDGElO5MgrukIe_wFKu6gfrJnPCSVH5kkZXWt-5bApx3rG0W6igK7cejykvOZ73NhjVqosdq4qJ30ilgsOzA41rOL6pH1aGzPaDuF6izXWNX_R-h2x40FTibUVDPul9wYze/w128-h80/assets_task_01jwn4y37nf1hsscmzcr847sy6_1748761605_img_1.webp" width="128" style="margin: 5px;" alt="Logo 2" />
+                <img border="0" data-original-height="1024" data-original-width="1536" height="79"
+                     src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKBgqj4D5DwggLC3F1ml5-vc-2a3XvqX6QkT3aEqzNuuR2vKBO8bhXdL4UOlkIz1fzVACz8ehxG0KlvZjmZymAO4262JiPy21LlDtmDkVVYMib9spRPq49fu4S6rQHWkPWBsD1PPjHujKVPxK05y6zKAurCHtjYYSG2cA0M53NtK8a1hjsYbmd7veNlw_/w120-h79/assets_task_01jwn63yjfe7qb7a9zq72brmyk_1748762828_img_1.webp" width="120" style="margin: 5px;" alt="Logo 3" />
+            </div>
+        </div>
+        <br />
+        <div class="separator" style="clear: both; text-align: center;"><br /></div>
+        <br />
+        <h1>Tu Próxima Aventura Empieza Aquí: Yates Catamaranes y Monocascos</h1>
+        <p>Descubre la embarcación perfecta para tus sueños de navegación en Manta, Ecuador.</p>
+    </div>
+
+    <div class="navbar">
+        <a href="#" id="home-link">INICIO</a>
+        <a href="#" id="quienes-somos-link">NOSOTROS</a>
+        <a href="#" id="contact-link">CONTACTO</a>
+    </div>
+
+    <div class="services-section" id="services-section">
+        <h2>Encuentra la Embarcación de Tus Sueños</h2>
+        <p>En **YachtLink Ecuador**, te ofrecemos una selecta variedad de embarcaciones nuevas y de segunda mano, junto con un servicio integral para que tu experiencia de compra sea inmejorable.</p>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+                <h3><a href="yates-lujo.html"><i class="fas fa-yacht icon"></i> Yates de Lujo en Venta</a></h3>
+                <p>Explora nuestra exclusiva colección de yates a motor, ideales para el confort, el entretenimiento y la navegación de alto rendimiento. Perfectos para escapadas de lujo o travesías prolongadas.</p>
+                <ul>
+                    <li>Modelos nuevos y usados de prestigiosas marcas.</li>
+                    <li>Opciones de diferentes esloras y configuraciones.</li>
+                    <li>Interiores de lujo y tecnología de vanguardia.</li>
+                    <li>Listos para navegar.</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3><a href="catamaranes.html"><i class="fas fa-catamaran icon"></i> Catamaranes para Aventura y Confort</a></h3>
+                <p>Descubre la estabilidad y el espacio incomparables de nuestros catamaranes. Ideales para familias, grupos o quienes buscan una plataforma espaciosa para vivir a bordo o explorar destinos exóticos.</p>
+                <ul>
+                    <li>Gran estabilidad y bajo calado.</li>
+                    <li>Amplias cubiertas y habitabilidad.</li>
+                    <li>Modelos de vela y motor disponibles.</li>
+                    <li>Ideales para chárter o uso personal.</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3><a href="monocascos.html"><i class="fas fa-sailboat icon"></i> Monocascos Clásicos y Modernos</a></h3>
+                <p>Para los amantes de la tradición náutica y el rendimiento en el mar, ofrecemos una selección de monocascos, desde veleros elegantes hasta lanchas deportivas, combinando belleza y funcionalidad.</p>
+                <ul>
+                    <li>Veleros de crucero y regata.</li>
+                    <li>Lanchas rápidas y de paseo.</li>
+                    <li>Diseños clásicos y aerodinámicos.</li>
+                    <li>Rendimiento comprobado en el mar.</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3><a href="asesoria-financiamiento.html"><i class="fas fa-handshake icon"></i> Asesoría y Financiamiento</a></h3>
+                <p>Te acompañamos en cada paso del proceso de compra, desde la selección de la embarcación ideal hasta la gestión de opciones de financiamiento y seguros adaptados a tus necesidades.</p>
+                <ul>
+                    <li>Asesoría personalizada por expertos.</li>
+                    <li>Gestión de trámites de importación y registro.</li>
+                    <li>Contacto con entidades financieras especializadas.</li>
+                    <li>Opciones de seguro para tu nueva embarcación.</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3><a href="servicio-post-venta.html"><i class="fas fa-cogs icon"></i> Servicio Post-Venta y Mantenimiento</a></h3>
+                <p>Tu inversión está segura con nosotros. Ofrecemos un completo servicio post-venta y opciones de mantenimiento para garantizar que tu embarcación se mantenga en óptimas condiciones.</p>
+                <ul>
+                    <li>Mantenimiento preventivo y correctivo.</li>
+                    <li>Reparaciones especializadas (motor, casco, sistemas).</li>
+                    <li>Suministro de repuestos originales.</li>
+                    <li>Reacondicionamiento y mejoras.</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3><a href="personalizacion-brokerage.html"><i class="fas fa-compass icon"></i> Personalización y Brokerage</a></h3>
+                <p>¿Buscas una embarcación a medida o quieres vender la tuya? Ofrecemos servicios de personalización y brokerage para conectar compradores y vendedores en el mercado de embarcaciones.</p>
+                <ul>
+                    <li>Modificaciones y upgrades personalizados.</li>
+                    <li>Asesoría para la venta de tu embarcación actual.</li>
+                    <li>Valoración justa de embarcaciones.</li>
+                    <li>Amplia red de contactos en el mercado náutico.</li>
+                </ul>
+            </div>
+
+        </div>
+        <p style="text-align: center; margin-top: 30px;">¡Explora nuestra flota y comienza tu próxima aventura marina! Contáctanos para una consulta personalizada.</p>
+    </div>
+
+    <div class="message-container" id="global-message-container"></div>
+
+    <div class="footer">
+        <p>&copy; 2024 **YachtLink Ecuador**. Todos los derechos reservados.</p>
+        <p>Manta, Manabí, Ecuador.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const homeLink = document.getElementById('home-link');
+            const quienesSomosLink = document.getElementById('quienes-somos-link');
+            const contactLink = document.getElementById('contact-link');
+            const globalMessageContainer = document.getElementById('global-message-container');
+            const servicesSection = document.getElementById('services-section');
+
+            // Contenido de "NOSOTROS" actualizado
+            const quienesSomosText = `
+                <div class="message-content">
+                    <h2>Nosotros: Tu Socio Confiable en la Compra de Embarcaciones</h2>
+                    <p>En **YachtLink Ecuador**, somos apasionados por el mar y por conectar a nuestros clientes con la embarcación perfecta. Con sede en Manta, Ecuador, nos especializamos en la venta de yates de lujo, catamaranes espaciosos y monocascos versátiles, ofreciendo una selección curada de embarcaciones nuevas y de segunda mano.</p>
+                    <p>Nuestra misión es hacer realidad tus sueños de navegación, brindando una experiencia de compra transparente, informada y placentera. Contamos con un equipo de expertos en el sector náutico que te guiará en cada etapa, desde la primera consulta hasta la entrega de tu embarcación y el soporte post-venta.</p>
+                    <h3>Nuestros Compromisos:</h3>
+                    <ul>
+                        <li><span class="icon-check">✓</span> <strong>Selección de Calidad:</strong> Solo ofrecemos embarcaciones que cumplen con nuestros rigurosos estándares de calidad y seguridad.</li>
+                        <li><span class="icon-check">✓</span> <strong>Asesoría Experta:</strong> Nuestro equipo te brindará el conocimiento y la experiencia necesarios para tomar la mejor decisión.</li>
+                        <li><span class="icon-check">✓</span> <strong>Transparencia y Confianza:</strong> Nos basamos en la honestidad y la integridad en todas nuestras operaciones.</li>
+                        <li><span class="icon-check">✓</span> <strong>Servicio Integral:</strong> Desde el financiamiento hasta el mantenimiento, te ofrecemos soluciones completas.</li>
+                        <li><span class="icon-check">✓</span> <strong>Pasión por el Mar:</strong> Compartimos tu amor por la navegación y estamos dedicados a tu satisfacción.</li>
+                    </ul>
+                    <p>Descubre por qué somos el socio preferido para la compra de embarcaciones en Ecuador. ¡Te esperamos para zarpar hacia nuevas aventuras!</p>
+                </div>
+            `;
+
+            const contactText = `
+                <div class="message-content">
+                    <h2>Contáctanos y Comienza Tu Viaje Náutico</h2>
+                    <p>¿Listo para encontrar tu próxima embarcación o tienes alguna pregunta? Estamos aquí para ayudarte. Contáctanos a través de los siguientes medios:</p>
+                    <ul>
+                        <li><span class="icon-check">✓</span> **Email:** info@yachtlinkecuador.com</li>
+                        <li><span class="icon-check">✓</span> **Teléfono:** +593 99 123 4567</li>
+                        <li><span class="icon-check">✓</span> **WhatsApp:** <a href="https://wa.me/593991234567" target="_blank" style="color: #007bff; text-decoration: none;">+593 99 123 4567</a></li>
+                        <li><span class="icon-check">✓</span> **Dirección:** Marina de Manta, Dársena A, Local #X, Manta, Manabí, Ecuador.</li>
+                        <li><span class="icon-check">✓</span> **Horario de Atención:** Lunes a Sábado: 9:00 AM - 6:00 PM</li>
+                        <li><span class="icon-check">✓</span> **Redes Sociales:**
+                            <a href="https://www.facebook.com/yachtlinkecuador" target="_blank" style="color: #007bff; text-decoration: none; margin-right: 10px;">Facebook</a>
+                            <a href="https://www.instagram.com/yachtlinkecuador" target="_blank" style="color: #007bff; text-decoration: none;">Instagram</a>
+                        </li>
+                    </ul>
+                    <p>¡Esperamos tu llamada o visita para ayudarte a navegar hacia tus sueños!</p>
+                </div>
+            `;
+
+            // Función para cerrar el contenedor global (Nosotros/Contacto)
+            function closeGlobalMessageContainer() {
+                if (globalMessageContainer.classList.contains('show')) {
+                    globalMessageContainer.classList.remove('show');
+                    setTimeout(() => {
+                        globalMessageContainer.innerHTML = '';
+                    }, 500);
+                }
+            }
+
+            // Función para mostrar/ocultar el contenedor global y la sección de servicios
+            function toggleGlobalMessage(contentToShow) {
+                const isCurrentlyShowing = globalMessageContainer.classList.contains('show');
+                // Normaliza el contenido para una comparación más robusta (elimina espacios en blanco para evitar falsos negativos)
+                const currentContentHtml = globalMessageContainer.innerHTML.replace(/\s/g, '').replace(/"/g, "'");
+                const newContentHtml = contentToShow.replace(/\s/g, '').replace(/"/g, "'");
+
+                if (isCurrentlyShowing && currentContentHtml.includes(newContentHtml.substring(0, 100))) { // Comparamos un substring para mayor robustez
+                    closeGlobalMessageContainer();
+                    servicesSection.style.display = 'block'; // Mostrar la sección de servicios
+                } else {
+                    if (isCurrentlyShowing) {
+                        // Si ya hay algo mostrado, lo ocultamos primero y luego mostramos el nuevo contenido
+                        globalMessageContainer.classList.remove('show');
+                        setTimeout(() => {
+                            globalMessageContainer.innerHTML = contentToShow;
+                            globalMessageContainer.classList.add('show');
+                        }, 500); // Espera a que termine la animación de ocultar
+                    } else {
+                        // Si no hay nada mostrado, simplemente lo mostramos
+                        globalMessageContainer.innerHTML = contentToShow;
+                        globalMessageContainer.classList.add('show');
+                    }
+                    servicesSection.style.display = 'none'; // Ocultar la sección de servicios
+                }
+            }
+
+            // --- Event Listeners ---
+            homeLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                closeGlobalMessageContainer();
+                servicesSection.style.display = 'block'; // Asegurar que la sección de servicios se muestre
+            });
+
+            quienesSomosLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                toggleGlobalMessage(quienesSomosText);
+            });
+
+            contactLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                toggleGlobalMessage(contactText);
+            });
+
+            // Al cargar la página, asegura que la sección de servicios se muestre por defecto
+            if (!globalMessageContainer.classList.contains('show')) {
+                servicesSection.style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>
